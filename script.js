@@ -1,4 +1,5 @@
 var root = document.getElementById("root");
+var root2 = document.getElementById("root2");
 
 var template = (
   <div>
@@ -12,12 +13,29 @@ var template = (
   </div>
 );
 
+var product = {
+  product_name: "Samsung S10",
+  price: 3000,
+  desc: null,
+};
+
+function formatPrice(p) {
+  return p + " TL";
+}
+function getDescription(desc) {
+  if (desc) {
+    return <p id="product-description">desc</p>;
+  } else {
+    return <p id="product-description">no desc</p>;
+  }
+}
 var template2 = (
   <div>
-    <h2 id="product-name">Samsung S9</h2>
-    <p id="product-price">price: 3000Tl</p>
-    <p id="product-description">İyi Bir Telefon</p>
+    <h2 id="product-name">name :{product.product_name}</h2>
+    <p id="product-price">price: {formatPrice(product.price)}</p>
+    {getDescription(product.desc)}
   </div>
 );
 
 ReactDOM.render(template, root);
+ReactDOM.render(template2, root2);
