@@ -1,49 +1,65 @@
-var root = document.getElementById("root");
+class ToDoApp extends React.Component{
+    render(){
+        return (
+            <div>
+            <Header2 />
+            <ToDo />
+            <Action />
+          </div>
 
-var app = {
-  title: "To do Application",
-  description: "lorem ipsum dolor.",
-  items: ["item1", "item2"],
+            
+        );
+    }
+}
+
+
+
+
+
+
+const Header = function () {
+  return <h1>Hello React</h1>;
 };
+const template = <Header />;
+ReactDOM.render(template, document.getElementById("root"));
 
-function onFormSubmit(event) {
-  event.preventDefault();
-
-  var item = event.target.elements.txtItem.value;
-  if (item) {
-    app.items.push(item);
-    event.target.elements.txtItem.value = "";
-    render();
+class Header2 extends React.Component {
+  render() {
+    return (
+      <div>
+        <h1>To Do Application</h1>
+        <div>Lorem, ipsum dolor.</div>
+      </div>
+    );
   }
 }
-function clearItems() {
-  app.items = [];
-  render();
-}
-function render() {
 
-  var template = (
-    <div>
-      <h1 id="header">{app.title}</h1>
-      <div>{app.description}</div>
-      {
-        <ul>
-          {app.items.map((item,index) => {
-            return <li key={item.toString()+"b"+index.toString()}>{item}</li>;
-          })}
-        </ul>
-      }
-
-      <p>
-        <button onClick={clearItems}>Clear Items</button>
-      </p>
-      <p>{app.items.length}</p>
-      <form onSubmit={onFormSubmit}>
-        <input type="text" name="txtItem" />
-        <button type="submit">Add Item</button>
-      </form>
-    </div>
-  );
-  ReactDOM.render(template, root);
+class ToDo extends React.Component {
+  render() {
+    return (
+      <ul>
+        <li>item1</li>
+        <li>item2</li>
+        <li>item3</li>
+      </ul>
+    );
+  }
 }
-render();
+class Action extends React.Component {
+  render() {
+    return (
+      <div>
+        <p>
+          <button>Clear Items</button>
+        </p>
+        <form>
+          <input type="text" name="txtItem" />
+          <button type="submit">Add Item</button>
+        </form>
+      </div>
+    );
+  }
+}
+
+
+ReactDOM.render(<ToDoApp/>, document.getElementById("root2"));
