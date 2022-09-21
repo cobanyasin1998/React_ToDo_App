@@ -26,7 +26,11 @@ function clearItems() {
 function render() {
   var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
     id: "header"
-  }, app.title), /*#__PURE__*/React.createElement("div", null, app.description), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum.")), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+  }, app.title), /*#__PURE__*/React.createElement("div", null, app.description), /*#__PURE__*/React.createElement("ul", null, app.items.map(function (item, index) {
+    return /*#__PURE__*/React.createElement("li", {
+      key: item.toString() + "b" + index.toString()
+    }, item);
+  })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
     onClick: clearItems
   }, "Clear Items")), /*#__PURE__*/React.createElement("p", null, app.items.length), /*#__PURE__*/React.createElement("form", {
     onSubmit: onFormSubmit

@@ -16,20 +16,24 @@ function onFormSubmit(event) {
     render();
   }
 }
-function clearItems(){
-  app.items=[];
+function clearItems() {
+  app.items = [];
   render();
 }
 function render() {
+
   var template = (
     <div>
       <h1 id="header">{app.title}</h1>
       <div>{app.description}</div>
-      <ul>
-        <li>Lorem, ipsum.</li>
-        <li>Lorem, ipsum.</li>
-        <li>Lorem, ipsum.</li>
-      </ul>
+      {
+        <ul>
+          {app.items.map((item,index) => {
+            return <li key={item.toString()+"b"+index.toString()}>{item}</li>;
+          })}
+        </ul>
+      }
+
       <p>
         <button onClick={clearItems}>Clear Items</button>
       </p>
