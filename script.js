@@ -1,95 +1,45 @@
 var root = document.getElementById("root");
-var root2 = document.getElementById("root2");
-var root3 = document.getElementById("root3");
-var root4 = document.getElementById("root4");
-var template = (
-  <div>
-    <h1 id="helloWorld">Hello World</h1>
-    <div>Lorem ipsum dolor sit amet.</div>
-    <ul>
-      <li>Lorem, ipsum.</li>
-      <li>Lorem, ipsum.</li>
-      <li>Lorem, ipsum.</li>
-    </ul>
-  </div>
-);
 
-var product = {
-  product_name: "Samsung S10",
-  price: 3000,
-  desc: null,
+var app = {
+  title: "To do Application",
+  description: "lorem ipsum dolor.",
+  items: ["item1", "item2"],
 };
 
-function formatPrice(p) {
-  return (p == 0 ? "free" : p) + " TL";
-}
-function getDescription(desc) {
-  if (desc) {
-    return <p id="product-description">desc</p>;
-  } else {
-    return <p id="product-description">no desc</p>;
+function onFormSubmit(event) {
+  event.preventDefault();
+
+  var item = event.target.elements.txtItem.value;
+  if (item) {
+    app.items.push(item);
+    event.target.elements.txtItem.value = "";
+    render();
   }
 }
-var template2 = (
-  <div>
-    <h2 id="product-name">
-      name :{product.product_name ? product.product_name : "no name"}
-    </h2>
-    <p id="product-price">price: {formatPrice(product.price)}</p>
-    {getDescription(product.desc)}
-  </div>
-);
-
-var number = 0;
-function addOn() {
-  number++;
-  renderApp();
+function clearItems(){
+  app.items=[];
+  render();
 }
-function minusOn() {
-  console.log("Minus");
-}
-
-
-function renderApp(){
-  var template3 = (
+function render() {
+  var template = (
     <div>
-      <h1>
-        Number:{number}
-        <button id="btnPlusOne" onClick={addOn} className="btnRed">
-          +1
-        </button>
-        <button
-          id="btnMinusOne"
-          onClick={() => {
-            number--;
-            renderApp();
-          }}
-          className="btnBlue"
-        >
-          -1
-        </button>
-      </h1>
+      <h1 id="header">{app.title}</h1>
+      <div>{app.description}</div>
+      <ul>
+        <li>Lorem, ipsum.</li>
+        <li>Lorem, ipsum.</li>
+        <li>Lorem, ipsum.</li>
+      </ul>
+      <p>
+        <button onClick={clearItems}>Clear Items</button>
+      </p>
+      <p>{app.items.length}</p>
+      <form onSubmit={onFormSubmit}>
+        <input type="text" name="txtItem" />
+        <button type="submit">Add Item</button>
+      </form>
     </div>
   );
-  ReactDOM.render(template3, root3);
+  ReactDOM.render(template, root);
 }
-
-
-function tick(){
-  var element =(
-    <div>
-      <h2>
-        Time is: {new Date().toLocaleTimeString()}
-      </h2>
-    </div>
-  )
-
-  ReactDOM.render(element,root4)
-}
-
-
-tick();
-ReactDOM.render(template, root);
-ReactDOM.render(template2, root2);
-renderApp();
-setInterval(tick,1000);
+render();

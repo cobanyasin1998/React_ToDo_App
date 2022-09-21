@@ -1,73 +1,42 @@
 "use strict";
 
 var root = document.getElementById("root");
-var root2 = document.getElementById("root2");
-var root3 = document.getElementById("root3");
-var root4 = document.getElementById("root4");
-var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
-  id: "helloWorld"
-}, "Hello World"), /*#__PURE__*/React.createElement("div", null, "Lorem ipsum dolor sit amet."), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum.")));
-var product = {
-  product_name: "Samsung S10",
-  price: 3000,
-  desc: null
+var app = {
+  title: "To do Application",
+  description: "lorem ipsum dolor.",
+  items: ["item1", "item2"]
 };
 
-function formatPrice(p) {
-  return (p == 0 ? "free" : p) + " TL";
-}
+function onFormSubmit(event) {
+  event.preventDefault();
+  var item = event.target.elements.txtItem.value;
 
-function getDescription(desc) {
-  if (desc) {
-    return /*#__PURE__*/React.createElement("p", {
-      id: "product-description"
-    }, "desc");
-  } else {
-    return /*#__PURE__*/React.createElement("p", {
-      id: "product-description"
-    }, "no desc");
+  if (item) {
+    app.items.push(item);
+    event.target.elements.txtItem.value = "";
+    render();
   }
 }
 
-var template2 = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
-  id: "product-name"
-}, "name :", product.product_name ? product.product_name : "no name"), /*#__PURE__*/React.createElement("p", {
-  id: "product-price"
-}, "price: ", formatPrice(product.price)), getDescription(product.desc));
-var number = 0;
-
-function addOn() {
-  number++;
-  renderApp();
+function clearItems() {
+  app.items = [];
+  render();
 }
 
-function minusOn() {
-  console.log("Minus");
+function render() {
+  var template = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", {
+    id: "header"
+  }, app.title), /*#__PURE__*/React.createElement("div", null, app.description), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum."), /*#__PURE__*/React.createElement("li", null, "Lorem, ipsum.")), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+    onClick: clearItems
+  }, "Clear Items")), /*#__PURE__*/React.createElement("p", null, app.items.length), /*#__PURE__*/React.createElement("form", {
+    onSubmit: onFormSubmit
+  }, /*#__PURE__*/React.createElement("input", {
+    type: "text",
+    name: "txtItem"
+  }), /*#__PURE__*/React.createElement("button", {
+    type: "submit"
+  }, "Add Item")));
+  ReactDOM.render(template, root);
 }
 
-function renderApp() {
-  var template3 = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "Number:", number, /*#__PURE__*/React.createElement("button", {
-    id: "btnPlusOne",
-    onClick: addOn,
-    className: "btnRed"
-  }, "+1"), /*#__PURE__*/React.createElement("button", {
-    id: "btnMinusOne",
-    onClick: function onClick() {
-      number--;
-      renderApp();
-    },
-    className: "btnBlue"
-  }, "-1")));
-  ReactDOM.render(template3, root3);
-}
-
-function tick() {
-  var element = /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "Time is: ", new Date().toLocaleTimeString()));
-  ReactDOM.render(element, root4);
-}
-
-tick();
-ReactDOM.render(template, root);
-ReactDOM.render(template2, root2);
-renderApp();
-setInterval(tick, 1000);
+render();
