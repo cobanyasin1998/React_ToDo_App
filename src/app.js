@@ -1,4 +1,5 @@
 "use strict";
+"use strict";
 
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
@@ -36,18 +37,31 @@ var ToDoApp = /*#__PURE__*/function (_React$Component) {
   _createClass(ToDoApp, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header2, null), /*#__PURE__*/React.createElement(ToDo, null), /*#__PURE__*/React.createElement(Action, null));
+      var app = {
+        title: "To Do Application",
+        desc: "Lorem Ipsum Dolor.",
+        items: ["item1", "item2"]
+      };
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(Header2, {
+        title: "Hello Yasin \xC7oban",
+        description: "25.03.98"
+      }), /*#__PURE__*/React.createElement(ToDo, {
+        items: app.items
+      }), /*#__PURE__*/React.createElement(Action, null));
     }
   }]);
 
   return ToDoApp;
 }(React.Component);
 
-var Header = function Header() {
-  return /*#__PURE__*/React.createElement("h1", null, "Hello React");
+var Header = function Header(props) {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, props.title), /*#__PURE__*/React.createElement("h3", null, props.description));
 };
 
-var template = /*#__PURE__*/React.createElement(Header, null);
+var template = /*#__PURE__*/React.createElement(Header, {
+  title: "Hello React",
+  description: "Lorem Ipsum"
+});
 ReactDOM.render(template, document.getElementById("root"));
 
 var Header2 = /*#__PURE__*/function (_React$Component2) {
@@ -64,7 +78,7 @@ var Header2 = /*#__PURE__*/function (_React$Component2) {
   _createClass(Header2, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, "To Do Application"), /*#__PURE__*/React.createElement("div", null, "Lorem, ipsum dolor."));
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h1", null, this.props.title), /*#__PURE__*/React.createElement("div", null, this.props.description));
     }
   }]);
 
@@ -83,9 +97,20 @@ var ToDo = /*#__PURE__*/function (_React$Component3) {
   }
 
   _createClass(ToDo, [{
+    key: "clearItems",
+    value: function clearItems() {
+      console.log(this);
+    }
+  }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "item1"), /*#__PURE__*/React.createElement("li", null, "item2"), /*#__PURE__*/React.createElement("li", null, "item3"));
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("ul", null, this.props.items.map(function (item, index) {
+        return /*#__PURE__*/React.createElement("li", {
+          key: index
+        }, item);
+      })), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", {
+        onClick: this.clearItems
+      }, "Clear Items")));
     }
   }]);
 
@@ -106,7 +131,7 @@ var Action = /*#__PURE__*/function (_React$Component4) {
   _createClass(Action, [{
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("button", null, "Clear Items")), /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("input", {
+      return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("form", null, /*#__PURE__*/React.createElement("input", {
         type: "text",
         name: "txtItem"
       }), /*#__PURE__*/React.createElement("button", {
