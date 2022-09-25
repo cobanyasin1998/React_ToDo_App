@@ -52,17 +52,17 @@ var ToDoApp = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log('Component Oluştu');
+      console.log("Component Oluştu");
     }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      console.log('Component Silindi');
+      console.log("Component Silindi");
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
-      console.log('Component Güncelleme');
+      console.log("Component Güncelleme");
     }
   }, {
     key: "deleteItem",

@@ -14,21 +14,17 @@ class ToDoApp extends React.Component {
     });
   }
 
-  componentDidMount(){
-    console.log('Component Oluştu');
+  componentDidMount() {
+    console.log("Component Oluştu");
   }
 
-componentWillUnmount(){
-  console.log('Component Silindi');
-
-}
-
-  componentDidUpdate(prevProps, prevState){
-    console.log('Component Güncelleme');
+  componentWillUnmount() {
+    console.log("Component Silindi");
   }
 
-
-
+  componentDidUpdate(prevProps, prevState) {
+    console.log("Component Güncelleme");
+  }
 
   deleteItem(item) {
     this.setState((prevState) => {
@@ -36,8 +32,8 @@ componentWillUnmount(){
         return item != i;
       });
       return {
-        items:arr
-      }
+        items: arr,
+      };
     });
   }
 
@@ -101,12 +97,13 @@ class ToDo extends React.Component {
     return (
       <div>
         <ul>
-          {
-            this.props.items.map((item,index)=>
-            <TodoItem deleteItem={this.props.deleteItem} key={index} item={item} />
-            )
-          }
-         
+          {this.props.items.map((item, index) => (
+            <TodoItem
+              deleteItem={this.props.deleteItem}
+              key={index}
+              item={item}
+            />
+          ))}
         </ul>
         <p>
           <button onClick={this.props.clearItems}>Clear Items</button>
