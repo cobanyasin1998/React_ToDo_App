@@ -1,4 +1,57 @@
 class ToDoApp extends React.Component {
+  constructor(props) {
+    super(props);
+    this.clearItems = this.clearItems.bind(this);
+    this.addItem = this.addItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+    this.state = {
+      items: ["item1", "item2"],
+    };
+  }
+  clearItems() {
+    this.setState({
+      items: [],
+    });
+  }
+
+  componentDidMount(){
+    console.log('Component Oluştu');
+  }
+
+componentWillUnmount(){
+  console.log('Component Silindi');
+
+}
+
+  componentDidUpdate(prevProps, prevState){
+    console.log('Component Güncelleme');
+  }
+
+
+
+
+  deleteItem(item) {
+    this.setState((prevState) => {
+      const arr = prevState.items.filter((i) => {
+        return item != i;
+      });
+      return {
+        items:arr
+      }
+    });
+  }
+
+  addItem(item) {
+    if (!item) {
+      return "Eklemek İstediğiniz Elemanı Giriniz";
+    } else if (this.state.items.indexOf(item) > -1) {
+      return "Aynı Elemanı Ekleyemezsiniz";
+    }
+    this.setState((prevState) => {
+      return { items: prevState.items.concat(item) };
+    });
+  }
+
   render() {
     const app = {
       title: "To Do Application",
@@ -9,8 +62,12 @@ class ToDoApp extends React.Component {
     return (
       <div>
         <Header2 title="Hello Yasin Çoban" description="25.03.98" />
-        <ToDo items={app.items} />
-        <Action />
+        <ToDo
+          items={this.state.items}
+          deleteItem={this.deleteItem}
+          clearItems={this.clearItems}
+        />
+        <Action addItem={this.addItem} />
       </div>
     );
   }
@@ -40,31 +97,64 @@ class Header2 extends React.Component {
 }
 
 class ToDo extends React.Component {
-
-  clearItems(){
-    console.log(this);
-  }
-
   render() {
     return (
       <div>
         <ul>
-          {this.props.items.map((item, index) => (
-            <li key={index}>{item}</li>
-          ))}
+          {
+            this.props.items.map((item,index)=>
+            <TodoItem deleteItem={this.props.deleteItem} key={index} item={item} />
+            )
+          }
+         
         </ul>
         <p>
-          <button onClick={this.clearItems}>Clear Items</button>
+          <button onClick={this.props.clearItems}>Clear Items</button>
         </p>
       </div>
     );
   }
 }
+class TodoItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.deleteItem = this.deleteItem.bind(this);
+  }
+  deleteItem() {
+    this.props.deleteItem(this.props.item);
+  }
+
+  render() {
+    return (
+      <li>
+        {this.props.item}
+        <button onClick={this.deleteItem}>X</button>
+      </li>
+    );
+  }
+}
 class Action extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
+    this.state = {
+      error: "",
+    };
+  }
+  onFormSubmit(e) {
+    e.preventDefault();
+    const item = e.target.elements.txtItem.value.trim();
+    const error = this.props.addItem(item);
+    this.setState({
+      error: error,
+    });
+    e.target.elements.txtItem.value = "";
+  }
   render() {
     return (
       <div>
-        <form>
+        {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={this.onFormSubmit}>
           <input type="text" name="txtItem" />
           <button type="submit">Add Item</button>
         </form>

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "babel":"npx babel methods-bind.js script.js --out-file=src/app.js  --presets env,react --watch"
+    "babel":"npx babel script.js --out-file=src/app.js  --presets env,react --watch"
   },
   "keywords": [],
   "author": "",
